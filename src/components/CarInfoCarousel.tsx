@@ -26,14 +26,12 @@ const CarInfoCarousel = (props: Props) => {
   const slideNext = () => {
     if (swiperRef) {
       swiperRef.slideNext();
-      setCurrentIndex(swiperRef.activeIndex);
     }
   };
 
   const slidePrev = () => {
     if (swiperRef) {
       swiperRef.slidePrev();
-      setCurrentIndex(swiperRef.activeIndex);
     }
   };
 
@@ -46,6 +44,7 @@ const CarInfoCarousel = (props: Props) => {
           clickable: true,
         }}
         modules={[Pagination]}
+        onActiveIndexChange={e => setCurrentIndex(e.activeIndex)}
       >
         {data.map((elem) => (
           <SwiperSlide key={elem.id} style={{ width: isMobile ? "80%" : "25%", paddingBottom: 32 }}>
