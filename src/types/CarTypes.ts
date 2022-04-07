@@ -1,7 +1,7 @@
 
 export type BodyType = "suv" | "estate" | "sedan"
 
-export interface CarData {
+export type CarData = {
     id: string;
     modelName: string;
     bodyType: BodyType;

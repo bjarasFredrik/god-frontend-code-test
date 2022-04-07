@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Block, useTheme } from "vcc-ui";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
@@ -12,12 +12,13 @@ import CarouselNavigation from "./CarouselNavigation";
 
 interface Props {
   data: CarData[],
+  initialSlide?: number;
 }
 
 const CarInfoCarousel = (props: Props) => {
-  const { data } = props;
+  const { data, initialSlide = 0 } = props;
   const [swiperRef, setSwiperRef] = useState<SwiperCore>();
-  const [curentIndex, setCurrentIndex] = useState<number>(0);
+  const [curentIndex, setCurrentIndex] = useState<number>(initialSlide);
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.untilL);
 
@@ -34,6 +35,12 @@ const CarInfoCarousel = (props: Props) => {
       swiperRef.slidePrev();
     }
   };
+
+  useEffect(() => {
+    if (swiperRef) {
+      swiperRef.slideTo(initialSlide);
+    }
+  }, [data, initialSlide, swiperRef]);
 
   return (
     <Block extend={{ "--swiper-theme-color": "black" }}>
